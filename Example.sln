@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Web.API", "Example.Web.API\Example.Web.API.csproj", "{97760503-9883-4873-8464-5F3F13B0FC81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Web.API", "Example.Web.API\Example.Web.API.csproj", "{97760503-9883-4873-8464-5F3F13B0FC81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Database.EF", "Example.Database.EF\Example.Database.EF.csproj", "{AE746229-CD79-49DB-A350-4A5C75AA68A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Database.EF", "Example.Database.EF\Example.Database.EF.csproj", "{AE746229-CD79-49DB-A350-4A5C75AA68A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Business.Core", "Example.Business.Core\Example.Business.Core.csproj", "{E8FB7AA8-09D8-4ADE-A456-75A3CA319252}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Business.Core", "Example.Business.Core\Example.Business.Core.csproj", "{E8FB7AA8-09D8-4ADE-A456-75A3CA319252}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

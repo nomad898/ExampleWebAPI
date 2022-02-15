@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Example.Database.EF.Models
 {
-    class UserGroup
+    public class UserGroup
     {
+        public int Id { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+        public virtual ICollection<User> Users { get; set; } = new List<User>();
     }
 }

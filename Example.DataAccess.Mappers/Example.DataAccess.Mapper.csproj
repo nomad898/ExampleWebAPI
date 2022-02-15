@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Example.Business.Core</RootNamespace>
+    <AssemblyName>Example.DataAccess.Mapper</AssemblyName>
+    <RootNamespace>Example.DataAccess.Mapper</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Example.Business.Core\Example.Business.Core.csproj" />
     <ProjectReference Include="..\Example.Database.EF\Example.Database.EF.csproj" />
   </ItemGroup>
 

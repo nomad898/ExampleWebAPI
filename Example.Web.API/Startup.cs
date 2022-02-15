@@ -1,15 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.OpenApi.Models;
+using Example.Business.Core.Interfaces;
+using Example.Business.Core.Services;
+using Example.Database.EF.Context.Configurations;
 
 namespace Example.Web.API
 {
@@ -26,7 +24,23 @@ namespace Example.Web.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options => 
+            {
+                var version = "v1";
+                options.SwaggerDoc(version, new OpenApiInfo()
+                {
+                    Version = version,
+                    Title = "Example",
+                    Description = "Example App for testing purposes"
+                });
+            });
+
+            services.AddDbContext<DatabaseContext>(options =>
+            {
+                var connectionStringName = "ExampleCS";
+                options.UseSqlServer(Configuration.GetConnectionString(connectionStringName));
+            });
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,7 +50,12 @@ namespace Example.Web.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(options => 
+                {
+                    var version = "v1";
+                    options.SwaggerEndpoint($"/swagger/{version}/swagger.json", version);
+                    options.RoutePrefix = string.Empty;
+                });
             }
 
             app.UseHttpsRedirection();
