@@ -8,6 +8,14 @@ using Microsoft.OpenApi.Models;
 using Example.Business.Core.Interfaces;
 using Example.Business.Core.Services;
 using Example.Database.EF.Context.Configurations;
+using System.Reflection;
+using System.Linq;
+using Example.Web.API.Utils;
+using Example.Web.API.Services;
+using Example.Web.API.Middlewares;
+using System;
+using Example.Business.Core.Profiles;
+using Example.Web.API.Profiles;
 
 namespace Example.Web.API
 {
@@ -35,12 +43,23 @@ namespace Example.Web.API
                 });
             });
 
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            var profiles = new Type[]
+            {
+                typeof(UserProfile),
+                typeof(UserVMProfile)
+            };
+            services.AddAutoMapper(profiles);
+
             services.AddDbContext<DatabaseContext>(options =>
             {
                 var connectionStringName = "ExampleCS";
                 options.UseSqlServer(Configuration.GetConnectionString(connectionStringName));
             });
-            services.AddTransient<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IJwtUtils, JwtUtils>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +82,7 @@ namespace Example.Web.API
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

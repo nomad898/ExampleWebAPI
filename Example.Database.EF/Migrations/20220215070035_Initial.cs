@@ -138,6 +138,8 @@ namespace Example.Database.EF.Migrations
                         INSERT INTO [dbo].[User] (Login, Password, CreatedDate, UserGroupID, UserStateID)
                         SELECT i.Login, i.Password, i.CreatedDate, i.UserGroupID, i.UserStateID
                         FROM inserted i;
+
+                        COMMIT TRANSACTION;
                     END
                 ";
             migrationBuilder.Sql(createTrigInsertRestrictAdminRoleAmount);
@@ -192,7 +194,9 @@ namespace Example.Database.EF.Migrations
                         UPDATE [dbo].[User] SET UserGroupID = i.UserGroupID  
                         FROM inserted i
                         JOIN [dbo].[User] u 
-                        ON u.ID = i.ID  
+                        ON u.ID = i.ID;
+
+                        COMMIT TRANSACTION;
                     END
                 ";
             migrationBuilder.Sql(createTrigUpdateRestrictAdminRoleAmount);
